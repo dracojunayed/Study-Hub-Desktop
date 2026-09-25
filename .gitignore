@@ -1,5 +1,6 @@
 node_modules/
 dist/*
+screenshots/
 !dist/Study Hub Setup 1.0.0.exe
 *.log
 .env
