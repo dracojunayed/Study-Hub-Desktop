@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Study Hub - Simple File Organizer</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+</head>
+<body data-theme="light">
+<header class="browser-tab-strip" id="browser-tab-strip">
+    <div class="browser-tab-item active" data-tab-id="main" id="tab-button-main">
+      <span class="browser-tab-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+        </svg>
+      </span>
+      <span class="browser-tab-title">Study Hub</span>
+    </div>
+  </header>
+<div class="tab-panes-wrapper" id="tab-panes-wrapper">
+<div class="tab-content-pane active" id="pane-main">
+      <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-top">
+            <div class="brand">
+              <div class="brand-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+              </div>
+              <div class="brand-text">
+                <h1 class="brand-title">Study Hub</h1>
+                <p class="brand-tagline">Keep it simple.</p>
+              </div>
+            </div>
+            <nav class="nav-menu">
+              <button class="nav-item active" data-view="dashboard" id="nav-dashboard">
+                <span class="nav-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                  </svg>
+                </span>
+                <span class="nav-label">Dashboard</span>
+              </button>
+              <button class="nav-item" data-view="favourites" id="nav-favourites">
+                <span class="nav-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                </span>
+                <span class="nav-label">Favourites</span>
+              </button>
+              <button class="nav-item" data-view="todos" id="nav-todos">
+                <span class="nav-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 11 12 14 22 4"></polyline>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                  </svg>
+                </span>
+                <span class="nav-label">To Do List</span>
+              </button>
+              <button class="nav-item" data-view="settings" id="nav-settings">
+                <span class="nav-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </span>
+                <span class="nav-label">Settings</span>
+              </button>
+            </nav>
+          </div>
+          <div class="sidebar-footer">
+            <span class="footer-divider"></span>
+            <p class="footer-text">Better<br />Students<br />Brighter Tomorrows</p>
+          </div>
+        </aside>
+        <main class="main-content">
+          <header class="mobile-header">
+            <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle menu">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+            <span class="mobile-title">Study Hub</span>
+          </header>
+          <div class="top-nav-bar">
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="global-search-input" placeholder="Search folders, PDFs, photos, and tasks..." autocomplete="off" />
+      <button id="search-clear-btn" class="search-clear-btn hidden">&times;</button>
+    </div>
+    <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+  </div>
+  <button class="btn btn-primary" id="btn-toggle-view-mode" title="Toggle Tab/Normal view">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <line x1="3" y1="9" x2="21" y2="9"></line>
+    </svg>
+    <span id="view-mode-label">Normal View</span>
+  </button>
+</div>
+          <section class="view-panel active" id="view-dashboard">
+            <header class="page-header">
+              <div class="greeting-title-row">
+                <h2 class="greeting-title" id="dashboard-greeting">Hello, Junayed</h2>
+                <button class="greeting-edit-btn" id="btn-edit-greeting" title="Edit greeting" aria-label="Edit greeting">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                  </svg>
+                </button>
+              </div>
+              <p class="greeting-sub">Stay consistent. Progress takes time.</p>
+            </header>
+            <div class="action-cards-grid">
+              <div class="action-card action-card-blue" id="btn-open-add-folder">
+                <div class="action-card-left">
+                  <div class="icon-box icon-box-blue">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </div>
+                  <div class="action-card-info">
+                    <h3 class="action-title">Add Folder</h3>
+                    <p class="action-sub">Create a new folder to organize your files</p>
+                  </div>
+                </div>
+                <span class="action-arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </div>
+              <div class="action-card action-card-green" id="btn-open-create-todo">
+                <div class="action-card-left">
+                  <div class="icon-box icon-box-green">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+                      <polyline points="9 12 11.5 14.5 15.5 9.5"></polyline>
+                    </svg>
+                  </div>
+                  <div class="action-card-info">
+                    <h3 class="action-title">Create Todo</h3>
+                    <p class="action-sub">Add a new task to your to-do list</p>
+                  </div>
+                </div>
+                <span class="action-arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="dashboard-split-grid">
+              <section class="card-panel" id="dashboard-folders-panel">
+                <div class="panel-header panel-header-flex">
+                  <h3 class="panel-title">My Folders</h3>
+                  <div class="folder-view-toggle" aria-label="Folder view">
+                    <button class="folder-view-btn" id="folder-view-list-btn" title="List view" aria-label="List view">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                      </svg>
+                    </button>
+                    <button class="folder-view-btn active" id="folder-view-block-btn" title="Block view" aria-label="Block view">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="panel-content" id="dashboard-folders-container">
+                  <div class="empty-state" id="empty-state-folders">
+                    <div class="empty-icon">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                      </svg>
+                    </div>
+                    <h4 class="empty-title">No folders yet</h4>
+                    <p class="empty-sub">Click on “Add Folder” to get started.</p>
+                  </div>
+                  <div class="folders-grid hidden" id="dashboard-folders-list"></div>
+                </div>
+              </section>
+              <section class="card-panel" id="dashboard-recent-panel">
+                <div class="panel-header panel-header-flex">
+                  <h3 class="panel-title">Recent Files</h3>
+                  <button class="icon-btn" id="btn-clear-recents" title="Clear Recent Files" aria-label="Clear Recent Files">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 4v6h-6"></path>
+                      <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="panel-content" id="dashboard-recent-container">
+                  <div class="empty-state" id="empty-state-recent">
+                    <div class="empty-icon">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                        <polyline points="13 2 13 9 20 9"></polyline>
+                      </svg>
+                    </div>
+                    <h4 class="empty-title">No recent files</h4>
+                    <p class="empty-sub">Your recently opened files will appear here.</p>
+                  </div>
+                  <div class="recent-list hidden" id="dashboard-recent-list"></div>
+                </div>
+              </section>
+            </div>
+            <section class="card-panel today-goals-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Today's Goals</h3>
+              </div>
+              <div class="panel-content" id="dashboard-goals-container">
+                <div class="goals-inner-box" id="goals-inner-box">
+                  <div class="empty-state" id="empty-state-goals">
+                    <div class="empty-icon-target">
+                      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                      </svg>
+                    </div>
+                    <h4 class="empty-title">No goals for today</h4>
+                    <p class="empty-sub">Click on “Create Todo” to add your goals.</p>
+                  </div>
+                  <ul class="goals-todo-list hidden" id="dashboard-goals-list"></ul>
+                </div>
+              </div>
+            </section>
+          </section>
+          <section class="view-panel" id="view-folder-detail">
+            <div class="folder-header-bar">
+              <div class="folder-title-wrap">
+                <button class="btn btn-light" id="btn-back-to-dashboard">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                  </svg>
+                  <span>Back</span>
+                </button>
+                <div class="folder-badge" id="current-folder-badge">
+                  <span class="folder-color-dot" id="current-folder-color"></span>
+                  <h2 id="current-folder-name" class="folder-detail-name">Folder Name</h2>
+                  <button class="folder-rename-btn" id="btn-rename-current-folder" title="Rename folder" aria-label="Rename folder">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 20h9"></path>
+                      <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="folder-actions">
+                <input type="file" id="pdf-file-input" accept="application/pdf" class="file-input-hidden" />
+                <input type="file" id="photo-file-input" accept="image/jpeg,image/png,image/webp,image/jpg" class="file-input-hidden" />
+                <button class="btn btn-primary" id="btn-upload-pdf">Upload PDF</button>
+                <button class="btn btn-secondary" id="btn-upload-photo">Upload Photo</button>
+                <button class="btn btn-danger-ghost" id="btn-delete-current-folder" title="Delete Folder">Delete Folder</button>
+              </div>
+            </div>
+            <div class="card-panel folder-files-panel">
+              <div class="panel-content">
+                <div class="empty-state" id="empty-state-folder-files">
+                  <h4 class="empty-title">No files in this folder</h4>
+                  <p class="empty-sub">Upload your course notes, textbooks, or reference photos above.</p>
+                </div>
+                <div class="file-items-list hidden" id="folder-files-list"></div>
+              </div>
+            </div>
+          </section>
+          <section class="view-panel" id="view-favourites">
+            <header class="page-header">
+              <h2 class="greeting-title">Favourites</h2>
+              <p class="greeting-sub">Quick access to your starred study materials.</p>
+            </header>
+            <div class="card-panel">
+              <div class="panel-content">
+                <div class="empty-state" id="empty-state-favourites">
+                  <h4 class="empty-title">No favourites yet</h4>
+                </div>
+                <div class="file-items-list hidden" id="favourites-list"></div>
+              </div>
+            </div>
+          </section>
+          <section class="view-panel" id="view-todos">
+            <header class="page-header page-header-flex">
+              <div>
+                <h2 class="greeting-title">To Do List</h2>
+                <p class="greeting-sub">Plan your schedule and stay organized.</p>
+              </div>
+              <button class="btn btn-primary" id="btn-open-create-todo-alt">+ Add Task</button>
+            </header>
+            <div class="todo-filter-tabs">
+              <button class="tab-btn active" data-todo-filter="all">All Tasks</button>
+              <button class="tab-btn" data-todo-filter="today">Today's Tasks</button>
+              <button class="tab-btn" data-todo-filter="completed">Completed</button>
+            </div>
+            <div class="card-panel">
+              <div class="panel-content">
+                <div class="empty-state" id="empty-state-all-todos">
+                  <h4 class="empty-title">No tasks found</h4>
+                </div>
+                <ul class="todo-full-list hidden" id="all-todos-list"></ul>
+              </div>
+            </div>
+          </section>
+          <section class="view-panel" id="view-settings">
+            <header class="page-header">
+              <h2 class="greeting-title">Settings</h2>
+              <p class="greeting-sub">Manage your application preferences and local data.</p>
+            </header>
+            <div class="settings-grid">
+              <div class="card-panel">
+                <div class="settings-row">
+                  <div>
+                    <h4 class="settings-label">Theme Appearance</h4>
+                    <p class="settings-help">Select light or dark mode.</p>
+                  </div>
+                  <div class="theme-toggle-group">
+                    <button class="btn-toggle active" id="theme-light-btn">Light</button>
+                    <button class="btn-toggle" id="theme-dark-btn">Dark</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-panel">
+                <div class="settings-stats-list">
+                  <div class="stat-item"><span class="stat-label">Folders</span><span class="stat-value" id="stat-folders-count">0</span></div>
+                  <div class="stat-item"><span class="stat-label">Files</span><span class="stat-value" id="stat-files-count">0</span></div>
+                  <div class="stat-item"><span class="stat-label">Todos</span><span class="stat-value" id="stat-todos-count">0</span></div>
+                  <div class="stat-item"><span class="stat-label">Storage Used</span><span class="stat-value" id="stat-storage-size">Calculating...</span></div>
+                </div>
+              </div>
+              <div class="card-panel border-danger">
+                <div class="settings-row">
+                  <div>
+                    <h4 class="settings-label text-danger">Reset Application Data</h4>
+                    <p class="settings-help">Permanently delete all folders, PDFs, photos, and todos.</p>
+                  </div>
+                  <button class="btn btn-danger" id="btn-clear-all-data">Clear All Data</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+<div class="modal-overlay hidden" id="modal-edit-greeting">
+    <div class="modal-box modal-box-sm">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Greeting</h3>
+        <button class="modal-close" data-modal-close="modal-edit-greeting">&times;</button>
+      </div>
+      <form id="form-edit-greeting">
+        <div class="form-group">
+          <label for="input-greeting" class="form-label">Your phrase</label>
+          <textarea id="input-greeting" class="form-input" rows="3" placeholder="Write anything..." required></textarea>
+          <p class="settings-help" id="greeting-word-count">0 / 25 words</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-modal-close="modal-edit-greeting">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="modal-rename-folder">
+    <div class="modal-box modal-box-sm">
+      <div class="modal-header">
+        <h3 class="modal-title">Rename Folder</h3>
+        <button class="modal-close" data-modal-close="modal-rename-folder">&times;</button>
+      </div>
+      <form id="form-rename-folder">
+        <div class="form-group">
+          <label for="input-rename-folder" class="form-label">Folder name</label>
+          <input type="text" id="input-rename-folder" class="form-input" placeholder="Folder name" required />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-modal-close="modal-rename-folder">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Name</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="modal-add-folder">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Folder</h3>
+        <button class="modal-close" data-modal-close="modal-add-folder">&times;</button>
+      </div>
+      <form id="form-add-folder">
+        <div class="form-group">
+          <label for="input-folder-name" class="form-label">Folder name</label>
+          <input type="text" id="input-folder-name" class="form-input" placeholder="Any Name" required maxlength="40" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Choose folder colour</label>
+          <div class="color-picker-grid" id="folder-color-options">
+            <label class="color-option"><input type="radio" name="folder-color" value="blue" checked /><span class="color-swatch color-blue"></span><span class="color-name">Blue</span></label>
+            <label class="color-option"><input type="radio" name="folder-color" value="green" /><span class="color-swatch color-green"></span><span class="color-name">Green</span></label>
+            <label class="color-option"><input type="radio" name="folder-color" value="yellow" /><span class="color-swatch color-yellow"></span><span class="color-name">Yellow</span></label>
+            <label class="color-option"><input type="radio" name="folder-color" value="red" /><span class="color-swatch color-red"></span><span class="color-name">Red</span></label>
+            <label class="color-option"><input type="radio" name="folder-color" value="purple" /><span class="color-swatch color-purple"></span><span class="color-name">Purple</span></label>
+            <label class="color-option"><input type="radio" name="folder-color" value="orange" /><span class="color-swatch color-orange"></span><span class="color-name">Orange</span></label>
+            <label class="color-option"><input type="radio" name="folder-color" value="gray" /><span class="color-swatch color-gray"></span><span class="color-name">Gray</span></label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-modal-close="modal-add-folder">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Folder</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="modal-create-todo">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="todo-modal-title">Create Todo</h3>
+        <button class="modal-close" data-modal-close="modal-create-todo">&times;</button>
+      </div>
+      <form id="form-create-todo">
+        <input type="hidden" id="input-todo-edit-id" value="" />
+        <div class="form-group">
+          <label for="input-todo-task" class="form-label">Task</label>
+          <input type="text" id="input-todo-task" class="form-input" placeholder="Anything To Do" required maxlength="120" />
+        </div>
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label for="input-todo-priority" class="form-label">Priority (Optional)</label>
+            <select id="input-todo-priority" class="form-select">
+              <option value="normal">Normal</option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="form-group col-half">
+            <label for="input-todo-date" class="form-label">Date</label>
+            <input type="date" id="input-todo-date" class="form-input" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-modal-close="modal-create-todo">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-todo">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="modal-confirm">
+    <div class="modal-box modal-box-sm">
+      <div class="modal-header"><h3 class="modal-title" id="confirm-title">Confirm Action</h3></div>
+      <p class="confirm-message" id="confirm-message">Are you sure you want to proceed?</p>
+      <div class="modal-footer">
+        <button class="btn btn-light" id="confirm-cancel-btn">Cancel</button>
+        <button class="btn btn-danger" id="confirm-ok-btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

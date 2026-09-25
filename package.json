@@ -1,0 +1,17 @@
+{
+  "name": "study-hub",
+  "productName": "Study Hub",
+  "version": "1.0.0",
+  "description": "Generated application",
+  "author": "Junayed <>",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable nsis"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  }
+}
